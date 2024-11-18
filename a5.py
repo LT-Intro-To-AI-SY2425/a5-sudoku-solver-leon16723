@@ -106,7 +106,17 @@ class Board:
         Returns:
             a tuple of row, column index identifying the most constrained cell
         """
-        pass
+        mini = 9
+        row = 0
+        column = 0 
+        for i in range (self.size): 
+            for j in range (self.size): 
+                cell = self.rows[i][j]
+                if isinstance (cell, list) and len(self.rows[i][j])< mini:
+                    mini = len(self.rows[i][j])
+                    row = 1 
+                    column = 1 
+                return (row,column)
 
     def failure_test(self) -> bool:
         """Check if we've failed to correctly fill out the puzzle. If we find a cell
@@ -116,7 +126,12 @@ class Board:
         Returns:
             True if we have failed to fill out the puzzle, False otherwise
         """
-        pass
+        for row in self.rows:
+            for col in row:
+                if col == []:
+                    return True
+                
+        return False
 
     def goal_test(self) -> bool:
         """Check if we've completed the puzzle (if we've placed all the numbers).
@@ -125,7 +140,8 @@ class Board:
         Returns:
             True if we've placed all numbers, False otherwise
         """
-        pass
+        return self.num_nums_placed == self.size*self.size
+
 
     def update(self, row: int, column: int, assignment: int) -> None:
         """Assigns the given value to the cell given by passed in row and column
@@ -139,7 +155,16 @@ class Board:
             column - index of the column to assign
             assignment - value to place at given row, column coordinate
         """
-        pass
+        self.rows[row][column] = assignment
+        self.num_nums_placed += 1
+
+        for i in range (self.size):
+            remove_if_exists(self.rows[row][i], assignment)
+            remove_if_exists(self.rows[i][column],assignment)
+        
+        print(self.subgrid_coordinates[row, column])
+        for i, j in self.subgrid_coordinates(row,column): 
+            remove_if_exists(self.rows[i][j], assignment) 
 
 
 def DFS(state: Board) -> Board:
@@ -294,7 +319,7 @@ if __name__ == "__main__":
     # #Place the 28 assignments in first_moves on the board.
     # for trip in first_moves:
     #     g.update(trip[0],trip[1],trip[2])
-    # g.print_pretty()
+    # g.print_pretty() 
     # #From the above print statement, you can see which numbers
     # #  have been assigned to the board, and then create test
     # #  cases by looking at the board and listing what values are
