@@ -30,3 +30,4 @@ Using Stack for DFS made it so that as it searched the list it would remove the 
 
 
 3. Considering the current implementation, how might the Sudoku solver be adapted or extended for larger puzzles or different types of grid-based logic games? How can the lessons learned from this assignment be applied to real-world problem-solving or optimization challenges?
+I think when applying this to other games such as tic tac toe, or rock paper sizoors we can see between BFS and DFS and which is more efficent, the suddoko solver is also a good set up for these types of problems as it initself is a grid, altough simple, porblem. I do like the fact that we used both DFS and BFS as we can see the benefits and negatives from both wich again helps with future problems.
